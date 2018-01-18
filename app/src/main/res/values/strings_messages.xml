@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!--snackbar-->
+	<string name="snackbar_item_removed">Record removed</string>
+	<string name="snackbar_item_edited">Record edited</string>
+	<string name="snackbar_item_added">Record added</string>
+
+</resources>

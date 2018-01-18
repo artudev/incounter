@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/itemBackground"
+	android:orientation="vertical"
+	android:padding="2dp">
+
+	<TextView
+		android:id="@+id/tv_item_date"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="0dp"
+		android:layout_marginLeft="8dp"
+		android:layout_marginTop="0dp"
+		android:gravity="center"
+		android:text="12.12.2212"
+		android:textColor="@color/text"
+		android:textSize="16sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias="0.5"/>
+	<TextView
+		android:id="@+id/tv_item_value"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="0dp"
+		android:layout_marginLeft="8dp"
+		android:layout_marginRight="8dp"
+		android:layout_marginTop="0dp"
+		android:gravity="center"
+		android:text="3424"
+		android:textColor="@color/textDark"
+		android:textSize="12sp"
+		app:layout_constraintBottom_toBottomOf="@+id/tv_item_date"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintLeft_toRightOf="@+id/tv_item_date"
+		app:layout_constraintRight_toLeftOf="@+id/tv_item_percent"
+		app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.904"/>
+	<TextView
+		android:id="@+id/tv_item_percent"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="0dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginTop="0dp"
+		android:layout_weight="1"
+		android:gravity="center"
+		android:text="123"
+		android:textColor="@color/text"
+		android:textSize="16sp"
+		app:layout_constraintBottom_toBottomOf="@+id/tv_item_date"
+		app:layout_constraintRight_toLeftOf="@+id/ibtn_item_remove"
+		app:layout_constraintTop_toTopOf="@+id/tv_item_date" app:layout_constraintVertical_bias="0.0"/>
+	<ImageButton
+		android:id="@+id/ibtn_item_remove"
+		style="?android:attr/borderlessButtonStyle"
+		android:layout_width="48dp"
+		android:layout_height="48dp"
+		android:layout_marginBottom="0dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:src="@drawable/ic_clear_black_24dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toTopOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

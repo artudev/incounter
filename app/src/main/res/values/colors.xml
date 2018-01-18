@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<color name="colorPrimary">#0e1317</color>
+	<color name="colorPrimaryDark">#4a5e61</color>
+	<color name="colorAccent">#c74600</color>
+
+	<color name="fabColor">#242b36</color>
+
+	<color name="itemBackground">#232e38</color>
+
+	<color name="workspaceBackground">#12181d</color>
+	<color name="text">#e6e6e6</color>
+	<color name="textDark">#9e9e9e</color>
+	<color name="textDialog">#12181d</color>
+	<color name="hintDialog">#485159</color>
+
+	<color name="btnBgIdle">#1c232d</color>
+	<color name="btnBgDisabled">#2e2e2e</color>
+	<color name="btnBgPressed">#2c3746</color>
+
+</resources>

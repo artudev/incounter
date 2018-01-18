@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+
+android {
+	compileSdkVersion 25
+
+	dexOptions {
+		javaMaxHeapSize "4g"
+	}
+
+	defaultConfig {
+		applicationId "pl.vivifiedbits.incounter"
+		minSdkVersion 18
+		targetSdkVersion 25
+		versionCode 1
+		versionName "1.0"
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+		android.compileOptions.sourceCompatibility 1.8
+		android.compileOptions.targetCompatibility 1.8
+
+
+	}
+	buildTypes {
+		def appName = "Income Counter"
+		release {
+			def moduleName = appName + " Release"
+
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			resValue "string", "app_name", appName
+			applicationVariants.all { variant ->
+				appendVersionNameVersionCode(appName, moduleName, variant, defaultConfig)
+			}
+		}
+		debug {
+			def appNameDebug = appName + " Debug"
+
+			applicationIdSuffix ".debug"
+			resValue "string", "app_name", appNameDebug
+
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+			multiDexEnabled true
+		}
+	}
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+}
+
+def appendVersionNameVersionCode(newApkName, moduleName, variant, defaultConfig) {
+	variant.outputs.each { output ->
+		if (variant.buildType.name == android.buildTypes.release.name) {
+			def file = output.outputFile
+			def fileName = file.name.replace(".apk", "-" + defaultConfig.versionName + ".apk")
+			fileName = fileName.replace(moduleName, newApkName)
+			output.outputFileName = fileName
+		}
+	}
+}
+
+dependencies {
+	compile fileTree(include: ['*.jar'], dir: 'libs')
+	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+		exclude group: 'com.android.support', module: 'support-annotations'
+	})
+	androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+	testCompile 'junit:junit:4.12'
+	testCompile 'org.robolectric:robolectric:3.3'
+
+	compile project(':filestorage')
+	compile project(':fileio')
+
+	compile 'com.android.support:appcompat-v7:25.3.1'
+	compile 'com.android.support.constraint:constraint-layout:1.0.2'
+	compile 'com.android.support:design:25.3.1'
+	compile 'com.android.support:support-annotations:25.3.1'
+
+	compile 'com.jakewharton:butterknife:8.8.1'
+	annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+	compile 'com.jakewharton.timber:timber:4.6.0'
+
+	compile 'com.google.code.gson:gson:2.8.2'
+	compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+	compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+	compile 'com.squareup.retrofit2:retrofit:2.3.0'
+	compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
+	compile 'com.google.dagger:dagger-android:2.11'
+	compile 'com.google.dagger:dagger-android-support:2.11' // if you use the support libraries
+	annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+	annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+
+}
