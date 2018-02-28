@@ -11,7 +11,7 @@ public class IncomeActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		Timber.d("onCreate");
 		super.onCreate(savedInstanceState);
-		
+
 		IncomeFragment incomeFragment = new IncomeFragment();
 		setContent(incomeFragment);
 	}

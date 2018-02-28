@@ -19,6 +19,8 @@ import butterknife.Unbinder;
 import pl.vivifiedbits.incounter.R;
 import pl.vivifiedbits.incounter.income.dialog.EditIncomeListener;
 import pl.vivifiedbits.incounter.income.dialog.IncomeDialog;
+import pl.vivifiedbits.incounter.income.dialog.PercentDialog;
+import pl.vivifiedbits.incounter.income.dialog.SetPercentListener;
 import pl.vivifiedbits.incounter.income.model.Income;
 import pl.vivifiedbits.incounter.income.model.IncomeSummaryHelperImpl;
 import pl.vivifiedbits.incounter.parent.BaseActivity;
@@ -153,7 +155,8 @@ public class IncomeFragment extends BaseFragment implements IncomeContract.View 
 	}
 
 	private void showPercentDialog() {
-		//TODO
+		PercentDialog percentDialog = PercentDialog.newInstance((SetPercentListener) mPresenter);
+		percentDialog.show(getChildFragmentManager(), null);
 	}
 
 	@Override

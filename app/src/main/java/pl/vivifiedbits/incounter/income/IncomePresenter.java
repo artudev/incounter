@@ -16,6 +16,7 @@ import pl.vivifiedbits.incounter.MainApplication;
 import pl.vivifiedbits.incounter.income.adapter.IncomeAdapter;
 import pl.vivifiedbits.incounter.income.adapter.OnIncomeClickListener;
 import pl.vivifiedbits.incounter.income.dialog.EditIncomeListener;
+import pl.vivifiedbits.incounter.income.dialog.SetPercentListener;
 import pl.vivifiedbits.incounter.income.model.Income;
 import pl.vivifiedbits.incounter.income.model.IncomeContainer;
 import pl.vivifiedbits.incounter.income.model.IncomeSummaryHelperInterface;
@@ -24,7 +25,8 @@ import pl.vivifiedbits.incounter.utils.PreferencesHelper;
 import timber.log.Timber;
 
 public class IncomePresenter
-		implements IncomeContract.Presenter, OnIncomeClickListener, EditIncomeListener {
+		implements IncomeContract.Presenter, OnIncomeClickListener, EditIncomeListener,
+		SetPercentListener {
 
 	private final IncomeContract.View mView;
 
@@ -122,6 +124,12 @@ public class IncomePresenter
 
 		mView.displaySummary(totalSummary.getValue(), totalSummary.getSubValue(percent));
 		mView.displayMonthlySummary(monthlySummary.getValue(), monthlySummary.getSubValue(percent));
+	}
+
+	@Override
+	public void onPercentSet(float percent) {
+		PreferencesHelper.setPercent(mView.getContext(), percent);
+		mIncomeContainer.publishUpdate();
 	}
 
 	@Override
