@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import pl.vivifiedbits.incounter.R;
 import pl.vivifiedbits.incounter.income.model.Income;
-import pl.vivifiedbits.incounter.income.model.IncomeContainer;
+import pl.vivifiedbits.incounter.parent.BaseActivity;
 import pl.vivifiedbits.incounter.parent.BaseFragment;
 import timber.log.Timber;
 
@@ -22,62 +22,55 @@ public class IncomeDialog extends DialogFragment {
 
 	@BindView(R.id.acet_percent)
 	AppCompatEditText mAcetIncome;
-
 	private Unbinder mUnbinder;
-
-	private BaseFragment mBaseFragment;
-
 	private Income mIncome;
-
-	IncomeContainer mIncomeContainer;
-
-	public void setIncome(Income income) {
+	private EditIncomeListener mEditIncomeListener;
+	private void setIncome(Income income) {
 		mIncome = income;
 	}
-
-	public void setIncomeContainer(IncomeContainer incomeContainer) {
-		mIncomeContainer = incomeContainer;
+	public void setEditIncomeListener(@NonNull EditIncomeListener editIncomeListener) {
+		mEditIncomeListener = editIncomeListener;
 	}
-
+	public static IncomeDialog newInstance(@NonNull EditIncomeListener listener, Income income) {
+		IncomeDialog incomeDialog = new IncomeDialog();
+		incomeDialog.setIncome(income);
+		incomeDialog.setEditIncomeListener(listener);
+		return incomeDialog;
+	}
 	@NonNull
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		Timber.d("onCreateDialog");
-
 		View view =
 				LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_income, null, false);
 		mUnbinder = ButterKnife.bind(this, view);
-
-		mBaseFragment = (BaseFragment) getParentFragment();
-
+		BaseActivity baseActivity = ((BaseFragment) getParentFragment()).getBaseActivity();
 		if (mIncome != null) {
 			mAcetIncome.setText(String.valueOf(mIncome.getValue()));
 		}
-
 		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 		builder.setView(view);
 		builder.setPositiveButton(R.string.set, (dialog, which) -> {
 			if (mAcetIncome.getText().toString().isEmpty()) {
 				dialog.dismiss();
-				mBaseFragment.getBaseActivity().hideKeyboard();
+				baseActivity.hideKeyboard();
 				return;
 			}
-
 			float value = Float.parseFloat(mAcetIncome.getText().toString().replaceAll(",", "."));
 			if (mIncome != null) {
 				mIncome.setValue(value);
+				mEditIncomeListener.onEditIncome(mIncome);
 			} else {
-				mIncomeContainer
-						.addIncome(getContext(), new Income(System.currentTimeMillis(), value));
+				mIncome = new Income(System.currentTimeMillis(), value);
+				mEditIncomeListener.onAddIncome(mIncome);
 			}
-
-			mBaseFragment.getBaseActivity().hideKeyboard();
+			mAcetIncome.clearFocus();
+			baseActivity.hideKeyboard();
 		});
 		builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
-			dialog.dismiss();
-			mBaseFragment.getBaseActivity().hideKeyboard();
+			mAcetIncome.clearFocus();
+			baseActivity.hideKeyboard();
 		});
-
 		return builder.create();
 	}
 

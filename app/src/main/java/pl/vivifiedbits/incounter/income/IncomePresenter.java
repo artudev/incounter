@@ -15,6 +15,7 @@ import io.reactivex.disposables.Disposable;
 import pl.vivifiedbits.incounter.MainApplication;
 import pl.vivifiedbits.incounter.income.adapter.IncomeAdapter;
 import pl.vivifiedbits.incounter.income.adapter.OnIncomeClickListener;
+import pl.vivifiedbits.incounter.income.dialog.EditIncomeListener;
 import pl.vivifiedbits.incounter.income.model.Income;
 import pl.vivifiedbits.incounter.income.model.IncomeContainer;
 import pl.vivifiedbits.incounter.income.model.IncomeSummaryHelperInterface;
@@ -22,7 +23,8 @@ import pl.vivifiedbits.incounter.income.model.UnixHelper;
 import pl.vivifiedbits.incounter.utils.PreferencesHelper;
 import timber.log.Timber;
 
-public class IncomePresenter implements IncomeContract.Presenter, OnIncomeClickListener {
+public class IncomePresenter
+		implements IncomeContract.Presenter, OnIncomeClickListener, EditIncomeListener {
 
 	private final IncomeContract.View mView;
 
@@ -33,7 +35,6 @@ public class IncomePresenter implements IncomeContract.Presenter, OnIncomeClickL
 
 	private IncomeAdapter mIncomeAdapter;
 	private Disposable mSubjectDisposable;
-
 
 	public IncomePresenter(@NonNull IncomeContract.View view,
 			IncomeSummaryHelperInterface incomeSummaryHelper) {
@@ -117,10 +118,19 @@ public class IncomePresenter implements IncomeContract.Presenter, OnIncomeClickL
 		ArrayList<Income> incomes = mIncomeContainer.getIncomes();
 
 		Income totalSummary = mIncomeSummaryHelper.getSummary(incomes);
-		Income monthlySummary =
-				mIncomeSummaryHelper.getPeriodSummary(min, max, incomes);
+		Income monthlySummary = mIncomeSummaryHelper.getPeriodSummary(min, max, incomes);
 
 		mView.displaySummary(totalSummary.getValue(), totalSummary.getSubValue(percent));
 		mView.displayMonthlySummary(monthlySummary.getValue(), monthlySummary.getSubValue(percent));
+	}
+
+	@Override
+	public void onAddIncome(Income income) {
+		mIncomeContainer.addIncome(mView.getContext(), income);
+	}
+
+	@Override
+	public void onEditIncome(Income income) {
+		mIncomeContainer.publishUpdate();
 	}
 }

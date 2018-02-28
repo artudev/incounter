@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import pl.vivifiedbits.incounter.R;
+import pl.vivifiedbits.incounter.income.dialog.EditIncomeListener;
 import pl.vivifiedbits.incounter.income.dialog.IncomeDialog;
 import pl.vivifiedbits.incounter.income.model.Income;
 import pl.vivifiedbits.incounter.income.model.IncomeSummaryHelperImpl;
@@ -61,9 +62,7 @@ public class IncomeFragment extends BaseFragment implements IncomeContract.View 
 
 	@Override
 	public void showEditDialog(Income income) {
-		IncomeDialog dialog = new IncomeDialog();
-		dialog.setIncome(income);
-		dialog.setIncomeContainer(mPresenter.getIncomeContainer());
+		IncomeDialog dialog = IncomeDialog.newInstance((EditIncomeListener) mPresenter, income);
 		dialog.show(getChildFragmentManager(), null);
 	}
 
@@ -123,8 +122,7 @@ public class IncomeFragment extends BaseFragment implements IncomeContract.View 
 		floatingActionButton.setImageResource(R.drawable.ic_add);
 
 		floatingActionButton.setOnClickListener(v -> {
-			IncomeDialog dialog = new IncomeDialog();
-			dialog.setIncomeContainer(mPresenter.getIncomeContainer());
+			IncomeDialog dialog = IncomeDialog.newInstance((EditIncomeListener) mPresenter, null);
 			dialog.show(getChildFragmentManager(), null);
 		});
 	}
