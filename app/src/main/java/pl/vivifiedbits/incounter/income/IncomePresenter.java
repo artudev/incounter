@@ -117,7 +117,8 @@ public class IncomePresenter
 		long min = UnixHelper.getUnixFirstDayOfMonth(year, month);
 		long max = UnixHelper.getUnixLastDayOfMonth(year, month);
 
-		ArrayList<Income> incomes = mIncomeContainer.getIncomes();
+		ArrayList<Income> incomes = new ArrayList<>();
+		incomes.addAll(mIncomeContainer.getIncomes());
 
 		Income totalSummary = mIncomeSummaryHelper.getSummary(incomes);
 		Income monthlySummary = mIncomeSummaryHelper.getPeriodSummary(min, max, incomes);

@@ -20,8 +20,8 @@ public class IncomeContainer {
 
 	public static final String FILE_NAME = "income";
 
-	private ArrayList<Income> mIncomes;
-	private Subject<ArrayList<Income>> mSubject;
+	private List<Income> mIncomes;
+	private Subject<List<Income>> mSubject;
 	private FileHelperInterface<List<Income>> mFileHelper;
 
 	public IncomeContainer(FileHelperInterface<List<Income>> fileHelper) {
@@ -33,7 +33,7 @@ public class IncomeContainer {
 		mSubject = mSubject.toSerialized();
 	}
 
-	public Subject<ArrayList<Income>> getSubject() {
+	public Subject<List<Income>> getSubject() {
 		return mSubject;
 	}
 
@@ -45,7 +45,7 @@ public class IncomeContainer {
 		return incomeAdapter;
 	}
 
-	public ArrayList<Income> getIncomes() {
+	public List<Income> getIncomes() {
 		return mIncomes;
 	}
 
