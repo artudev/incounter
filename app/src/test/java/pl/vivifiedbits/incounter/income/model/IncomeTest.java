@@ -28,7 +28,7 @@ public class IncomeTest {
 	}
 
 	@Test
-	public void getComparator() throws Exception {
+	public void comparatorTest() throws Exception {
 
 		Assert.assertEquals(mIncome1, mIncomes.get(0));
 

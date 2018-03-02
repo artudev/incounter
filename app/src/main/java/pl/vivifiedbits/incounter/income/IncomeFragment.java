@@ -60,9 +60,8 @@ public class IncomeFragment extends BaseFragment implements IncomeContract.View 
 
 	@Override
 	public void showRemoveDialog(Income income) {
-		showFragmentSnackbar(R.string.snackbar_item_removed, R.string.restore, v -> {
-			mPresenter.restoreIncome(income);
-		});
+		showFragmentSnackbar(R.string.snackbar_item_removed, R.string.restore,
+				v -> mPresenter.restoreIncome(income));
 	}
 
 	@Override

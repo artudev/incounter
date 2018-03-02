@@ -34,7 +34,6 @@ public class IncomePresenter
 	IncomeContainer mIncomeContainer;
 
 	private IncomeSummaryHelperInterface mIncomeSummaryHelper;
-
 	private IncomeAdapter mIncomeAdapter;
 	private Disposable mSubjectDisposable;
 
