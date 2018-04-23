@@ -12,7 +12,16 @@ public class IncomeActivity extends BaseActivity {
 		Timber.d("onCreate");
 		super.onCreate(savedInstanceState);
 
-		IncomeFragment incomeFragment = new IncomeFragment();
-		setContent(incomeFragment);
+		if (savedInstanceState == null) {
+			Timber.d("savedInstanceState is NULL");
+			IncomeFragment incomeFragment = new IncomeFragment();
+			setContent(incomeFragment);
+		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		Timber.d("onSaveInstanceState");
 	}
 }

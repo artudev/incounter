@@ -30,6 +30,8 @@ public interface IncomeContract {
 
 		void restoreIncome(Income income);
 
+		void onStart();
+
 		void onResume();
 
 		void onPause();

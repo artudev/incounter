@@ -106,6 +106,13 @@ public class IncomeFragment extends BaseFragment implements IncomeContract.View 
 	}
 
 	@Override
+	public void onStart() {
+		super.onStart();
+		Timber.d("onResume");
+		mPresenter.onStart();
+	}
+
+	@Override
 	public void onResume() {
 		super.onResume();
 		Timber.d("onResume");

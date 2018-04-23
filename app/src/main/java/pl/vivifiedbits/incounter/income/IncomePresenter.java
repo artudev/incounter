@@ -39,6 +39,7 @@ public class IncomePresenter
 
 	public IncomePresenter(@NonNull IncomeContract.View view,
 			IncomeSummaryHelperInterface incomeSummaryHelper) {
+		Timber.d("IncomePresenter create");
 		mView = view;
 
 		((MainApplication) view.getActivity().getApplication()).getIncomeComponent().inject(this);
@@ -54,6 +55,7 @@ public class IncomePresenter
 	@Override
 	public IncomeAdapter getIncomeAdapter() {
 		if (mIncomeAdapter == null) {
+			Timber.d("getIncomeAdapter create new adapter");
 			mIncomeAdapter = mIncomeContainer.getIncomeAdapter();
 		}
 		mIncomeAdapter.setOnIncomeClickListener(this);
@@ -62,7 +64,7 @@ public class IncomePresenter
 	}
 
 	@Override
-	public void onResume() {
+	public void onStart() {
 		if (mSubjectDisposable != null) {
 			mSubjectDisposable.dispose();
 			mSubjectDisposable = null;
@@ -76,6 +78,11 @@ public class IncomePresenter
 		});
 
 		loadIncomes();
+	}
+
+	@Override
+	public void onResume() {
+
 	}
 
 	private void loadIncomes() {
