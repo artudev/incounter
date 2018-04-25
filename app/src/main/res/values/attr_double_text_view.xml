@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="DoubleTextView">
+		<attr name="smallTextSize" format="dimension"/>
+		<attr name="largeTextSize" format="dimension"/>
+		<attr name="smallTextColor" format="color"/>
+		<attr name="largeTextColor" format="color"/>
+	</declare-styleable>
+</resources>
