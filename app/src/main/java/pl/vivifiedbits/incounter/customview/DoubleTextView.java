@@ -11,6 +11,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 
 import pl.vivifiedbits.incounter.R;
 import timber.log.Timber;
@@ -23,7 +24,7 @@ public class DoubleTextView extends View implements DoubleText {
 	private static final float DEF_SMALL_SIZE = 12f;
 	private static final float DEF_LARGE_SIZE = 16f;
 	private static final float INNER_SPACING = 8;
-	private static final String MAX_COUNT_STRING = "999999.99";
+
 	private Paint mLinePaint;
 	private TextPaint mLargeTextPaint;
 	private TextPaint mSmallTextPaint;
@@ -84,8 +85,8 @@ public class DoubleTextView extends View implements DoubleText {
 
 		mInnerSpacing = dpToPx(INNER_SPACING);
 
-		setSmallText("");
-		setLargeText("");
+		mSmallText = "";
+		mLargeText = "";
 	}
 
 	public int spToPx(float sp) {
@@ -103,9 +104,10 @@ public class DoubleTextView extends View implements DoubleText {
 		final Paint.FontMetrics fontMetricsLarge = mLargeTextPaint.getFontMetrics();
 
 		// Measure maximum possible width of text.
-		final float maxTextWidth = mLargeTextPaint.measureText(MAX_COUNT_STRING) +
-								   mSmallTextPaint.measureText(MAX_COUNT_STRING) +
-								   2 * mInnerSpacing;
+		final float maxTextWidth =
+				mLargeTextPaint.measureText(mLargeText) + mSmallTextPaint.measureText(mSmallText) +
+				2 * mInnerSpacing;
+
 		// Estimate maximum possible height of text.
 		final float maxTextHeight = -fontMetricsLarge.top + fontMetricsLarge.bottom;
 
@@ -135,20 +137,21 @@ public class DoubleTextView extends View implements DoubleText {
 		// Calculate horizontal center.
 		final float centerX = canvasWidth * 0.5f;
 
-		// Draw dividing line.
-		canvas.drawLine(centerX, 0, centerX, canvasHeight, mLinePaint);
-
 		// Draw text.
 
 		// Measure the width of text to display.
 		final float textWidth = mSmallTextPaint.measureText(mSmallText);
-		float textX = Math.round(centerX - textWidth - mInnerSpacing);
-		// Draw small
-		canvas.drawText(mSmallText, textX, canvasHeight, mSmallTextPaint);
 
-		textX = Math.round(centerX);
+		// Draw small
+		canvas.drawText(mSmallText, 0, canvasHeight, mSmallTextPaint);
+
+		// Draw dividing line.
+		float shiftX = Math.round(textWidth + mInnerSpacing);
+		canvas.drawLine(shiftX, 0, shiftX, canvasHeight, mLinePaint);
+
+		shiftX = Math.round(shiftX + mInnerSpacing);
 		// Draw large
-		canvas.drawText(mLargeText, textX + mInnerSpacing, canvasHeight, mLargeTextPaint);
+		canvas.drawText(mLargeText, shiftX, canvasHeight, mLargeTextPaint);
 	}
 
 	@Override
@@ -164,19 +167,40 @@ public class DoubleTextView extends View implements DoubleText {
 	@Override
 	public void setSmallText(String text) {
 		mSmallText = text;
-		invalidate();
+		checkForRelayout();
 	}
 
 	@Override
 	public void setLargeText(String text) {
 		mLargeText = text;
-		invalidate();
+		checkForRelayout();
 	}
 
 	@Override
 	public void setText(String small, String large) {
 		mSmallText = small;
 		mLargeText = large;
-		invalidate();
+		checkForRelayout();
+	}
+
+	/**
+	 * Check whether entirely new text requires a new view layout
+	 * or merely a new text layout.
+	 */
+	private void checkForRelayout() {
+		// If we have a fixed width, we can just swap in a new text layout
+		// if the text height stays the same or if the view height is fixed.
+
+		ViewGroup.LayoutParams layoutParams = getLayoutParams();
+
+		if (layoutParams.width != ViewGroup.LayoutParams.WRAP_CONTENT) {
+			// Static width, so try making a new text layout.
+			invalidate();
+		} else {
+			// Dynamic width, so we have no choice but to request a new
+			// view layout with a new text layout.
+			requestLayout();
+			invalidate();
+		}
 	}
 }
