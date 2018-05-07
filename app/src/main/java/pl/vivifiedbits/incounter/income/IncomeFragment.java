@@ -23,7 +23,6 @@ import pl.vivifiedbits.incounter.income.dialog.PercentDialog;
 import pl.vivifiedbits.incounter.income.dialog.SetPercentListener;
 import pl.vivifiedbits.incounter.income.model.Income;
 import pl.vivifiedbits.incounter.income.model.IncomeSummaryHelperImpl;
-import pl.vivifiedbits.incounter.parent.BaseActivity;
 import pl.vivifiedbits.incounter.parent.BaseFragment;
 import timber.log.Timber;
 
@@ -52,6 +51,8 @@ public class IncomeFragment extends BaseFragment implements IncomeContract.View 
 	TextView mTvSum2;
 	@BindView(tv_sub_sum2)
 	TextView mTvSubSum2;
+	@BindView(R.id.fab)
+	FloatingActionButton mFloatingActionButton;
 
 	private Unbinder mUnbinder;
 
@@ -128,17 +129,9 @@ public class IncomeFragment extends BaseFragment implements IncomeContract.View 
 
 	private void setupFloatingActionButton() {
 
-		final FloatingActionButton floatingActionButton =
-				((BaseActivity) getActivity()).getFloatingActionButton();
+		mFloatingActionButton.setImageResource(R.drawable.ic_add);
 
-		if (floatingActionButton == null) {
-			Timber.w("FloatingActionMenu is null");
-			return;
-		}
-
-		floatingActionButton.setImageResource(R.drawable.ic_add);
-
-		floatingActionButton.setOnClickListener(v -> {
+		mFloatingActionButton.setOnClickListener(v -> {
 			IncomeDialog dialog = IncomeDialog.newInstance((EditIncomeListener) mPresenter, null);
 			dialog.show(getChildFragmentManager(), null);
 		});

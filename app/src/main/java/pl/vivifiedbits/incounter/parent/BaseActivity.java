@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
@@ -33,9 +32,6 @@ public class BaseActivity extends AppCompatActivity
 
 	@BindView(R.id.toolbar)
 	Toolbar mToolbar;
-
-	@BindView(R.id.fab)
-	FloatingActionButton mFloatingActionButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -107,10 +103,6 @@ public class BaseActivity extends AppCompatActivity
 		}
 	}
 
-	public FloatingActionButton getFloatingActionButton() {
-		return mFloatingActionButton;
-	}
-
 	/**
 	 * Replace current fragment
 	 */
@@ -145,7 +137,6 @@ public class BaseActivity extends AppCompatActivity
 		fragmentTransaction.add(R.id.fl_content, newFragment);
 		fragmentTransaction.commit();
 		hideKeyboard();
-		getSupportFragmentManager().executePendingTransactions();
 	}
 
 	private void setFragment(BaseFragment newFragment, boolean child) {
@@ -159,7 +150,6 @@ public class BaseActivity extends AppCompatActivity
 		fragmentTransaction.replace(R.id.fl_content, newFragment);
 		fragmentTransaction.commit();
 		hideKeyboard();
-		getSupportFragmentManager().executePendingTransactions();
 	}
 
 	/**

@@ -23,38 +23,21 @@
 		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintVertical_bias="0.5"/>
-	<TextView
-		android:id="@+id/tv_item_value"
+	<pl.vivifiedbits.incounter.customview.DoubleTextView
+		android:id="@+id/dtv_item_value"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="0dp"
-		android:layout_marginLeft="8dp"
 		android:layout_marginRight="8dp"
-		android:layout_marginTop="0dp"
-		android:gravity="center"
-		android:text="3424"
-		android:textColor="@color/textDark"
-		android:textSize="12sp"
+		app:largeTextColor="@color/text"
+		app:largeTextSize="16sp"
 		app:layout_constraintBottom_toBottomOf="@+id/tv_item_date"
 		app:layout_constraintHorizontal_bias="1.0"
 		app:layout_constraintLeft_toRightOf="@+id/tv_item_date"
-		app:layout_constraintRight_toLeftOf="@+id/tv_item_percent"
-		app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.904"/>
-	<TextView
-		android:id="@+id/tv_item_percent"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="0dp"
-		android:layout_marginRight="16dp"
-		android:layout_marginTop="0dp"
-		android:layout_weight="1"
-		android:gravity="center"
-		android:text="123"
-		android:textColor="@color/text"
-		android:textSize="16sp"
-		app:layout_constraintBottom_toBottomOf="@+id/tv_item_date"
 		app:layout_constraintRight_toLeftOf="@+id/ibtn_item_remove"
-		app:layout_constraintTop_toTopOf="@+id/tv_item_date" app:layout_constraintVertical_bias="0.0"/>
+		app:layout_constraintTop_toTopOf="@+id/tv_item_date"
+		app:layout_constraintVertical_bias="1"
+		app:smallTextColor="@color/textDark"
+		app:smallTextSize="12sp"/>
 	<ImageButton
 		android:id="@+id/ibtn_item_remove"
 		style="?android:attr/borderlessButtonStyle"

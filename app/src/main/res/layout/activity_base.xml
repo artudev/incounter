@@ -22,16 +22,10 @@
 
 	</android.support.design.widget.AppBarLayout>
 
-	<include layout="@layout/content_main"/>
-
-	<android.support.design.widget.FloatingActionButton
-		android:id="@+id/fab"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="bottom|end"
-		android:layout_margin="@dimen/fab_margin"
-		android:src="@drawable/ic_add"
-		app:backgroundTint="@color/fabColor"/>
-
+	<FrameLayout
+		android:id="@+id/fl_content"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:layout="@layout/fragment_income"/>
 
 </android.support.design.widget.CoordinatorLayout>
